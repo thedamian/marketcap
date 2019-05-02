@@ -5,38 +5,52 @@ const app = express();
 app.set('view engine', 'ejs'); 
 const port =  5000; ;
 const apiUrl1 = "https://cloud.iexapis.com/stable/stock/";
-const apiUrl2 = "/stats?token=sk_df682fa87ed248bf9179a225c11c5ffc";
-const companies = ['AAPL',
-'MSFT',
-'AMZN',
-'GOOGL',
-'FB',
-'BRK.A',
-'BABA',
-//'SEHK: 700',
-'JPM',
-'JNJ'
+const apiUrl2 = "/stats?token="+process.env.iexapis;
+let LastRequest = new Date();
+let companies = [
+{stock:'AAPL',marketcap:0},
+{stock:'MSFT',marketcap:0},
+{stock:'AMZN',marketcap:0},
+{stock:'GOOGL',marketcap:0},
+{stock:'FB',marketcap:0},
+{stock:'BRK.A',marketcap:0},
+{stock:'BABA',marketcap:0},
+//{'SEHK: 700',price:0},
+{stock:'JPM',marketcap:0},
+{stock:'JNJ', marketcap:0},
 ]
 
 app.get("/",(req,res)=> {
-    let AllQuotes = [];
-    companies.map(c=> {
-       AllQuotes.push(fetch(apiUrl1 + c + apiUrl2)
-        .then(j=> j.json())
-        .then(data => {
-            return {stock:c,marketcap: data.marketcap};
-        })); // end of fetch  
-    }); // end of loop
+    let now = new Date();
+    let difference = now.getTime() - LastRequest.getTime(); // This will give difference in milliseconds
+    let resultInMinutes = Math.round(difference / 1000);
+    if (resultInMinutes > 30) {
+        console.log("it's been a minute. call the api")
+        LastRequest = new Date();
+        let AllQuotes = [];
+        companies.map(c=> {
+            AllQuotes.push(fetch(apiUrl1 + c.stock + apiUrl2)
+            .then(j=> j.json())
+            .then(data => {
+                return {stock:c.stock,marketcap:data.marketcap};
+            })); // end of fetch  
+        }); // end of loop
 
-    Promise.all(AllQuotes).then((mc)=> {
-        mc = mc.sort((a,b)=> (a.marketcap < b.marketcap)? 1 : -1);
-        res.render('./index.ejs', {stocks:mc});
-        //mc.map(c=> {res.write(c.stock+"="+Number(c.marketcap).toLocaleString()+"\n")});
+        Promise.all(AllQuotes).then((mc)=> {
+            companies = mc.sort((a,b)=> (a.marketcap < b.marketcap)? 1 : -1);
+            res.render('./index.ejs', {stocks:companies});
+            //mc.map(c=> {res.write(c.stock+"="+Number(c.marketcap).toLocaleString()+"\n")});
+            res.end();
+        })
+        .catch(error => { 
+            res.end(error.message)
+        });
+    } else {
+        console.log("it's been less",resultInMinutes)
+        res.render('./index.ejs', {stocks:companies});
         res.end();
-    })
-    .catch(error => { 
-        res.end(error.message)
-      });
+    }
+
 
 });
 
