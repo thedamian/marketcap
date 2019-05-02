@@ -24,7 +24,7 @@ app.get("/",(req,res)=> {
     let now = new Date();
     let difference = now.getTime() - LastRequest.getTime(); // This will give difference in milliseconds
     let resultInMinutes = Math.round(difference / 1000);
-    if (resultInMinutes > 30) {
+    if (resultInMinutes > 60) {
         console.log("it's been a minute. call the api")
         LastRequest = new Date();
         let AllQuotes = [];
