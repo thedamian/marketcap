@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="refresh" content="10" />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.min.css'>
+</head>
+<body>
+    <h1>Top Market Cap Stocks:</h1>
+    <ol>
+    <% stocks.forEach(stock=> { %>
+      <li>
+          <% if (stock.marketcap > 1000000000000) { %>
+          <h3> <% } %> 
+            <%= stock.stock %>: <%= Number(stock.marketcap).toLocaleString() %>
+            <% if (stock.marketcap > 1000000000000) { %>
+            </h3> <% } %> 
+     </li>
+    <% }) %>
+</ol>
+<h2>See you on BocaJS.org</h2>
+</body>
+</html>
+
