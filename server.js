@@ -6,7 +6,7 @@ app.set('view engine', 'ejs');
 const port =  5000; ;
 const apiUrl1 = "https://cloud.iexapis.com/stable/stock/";
 const apiUrl2 = "/stats?token="+process.env.iexapis;
-let LastRequest = new Date();
+let LastRequest =  new Date(new Date() - 60000);
 let companies = [
 {stock:'AAPL',marketcap:0},
 {stock:'MSFT',marketcap:0},
@@ -29,6 +29,7 @@ app.get("/",(req,res)=> {
         LastRequest = new Date();
         let AllQuotes = [];
         companies.map(c=> {
+	    console.log(apiUrl1 + c.stock + apiUrl2);
             AllQuotes.push(fetch(apiUrl1 + c.stock + apiUrl2)
             .then(j=> j.json())
             .then(data => {
