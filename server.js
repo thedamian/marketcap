@@ -2,6 +2,7 @@ const http = require("http");
 const express = require("express"); 
 const fetch = require('node-fetch');
 const app = express();
+require('dotenv').config();
 app.set('view engine', 'ejs'); 
 const port =  5000; ;
 const apiUrl1 = "https://cloud.iexapis.com/stable/stock/";
