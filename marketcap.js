@@ -1,9 +1,11 @@
 const http = require("http"); 
 const express = require("express"); 
 const fetch = require('node-fetch');
+const path = require("path"); 
 const app = express();
 require('dotenv').config();
 app.set('view engine', 'ejs'); 
+app.set("views", path.join(__dirname, `/views`)); 
 const port =  5000;
 const apiUrl1 = "https://cloud.iexapis.com/stable/stock/";
 const apiUrl2 = "/stats?token="+process.env.iexapis;
