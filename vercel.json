@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-         "src": "marketcap.js", "use": "@now/node" 
+         "src": "marketcap.js", "use": "@vercel/node" 
       }],
       "routes": [
         {
