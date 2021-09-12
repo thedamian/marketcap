@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const app = express();
 require('dotenv').config();
 app.set('view engine', 'ejs'); 
-const port =  5009;
+const port =  5000;
 const apiUrl1 = "https://cloud.iexapis.com/stable/stock/";
 const apiUrl2 = "/stats?token="+process.env.iexapis;
 let LastRequest =  new Date(new Date() - 60000);
