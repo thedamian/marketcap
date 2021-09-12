@@ -15,11 +15,15 @@ let companies = [
 {stock:'GOOGL',marketcap:0},
 {stock:'FB',marketcap:0},
 {stock:'BRK.A',marketcap:0},
-{stock:'BABA',marketcap:0},
-//{'SEHK: 700',price:0},
 {stock:'TSLA',marketcap:0},
+{stock:'TSLA',marketcap:0},
+{stock:'TSM',marketcap:0},
+{stock:'TCEHY',marketcap:0},
+{stock:'NVDA',marketcap:0},
+{stock:'V',marketcap:0},
+{stock:'JPM',marketcap:0},
 {stock:'JNJ', marketcap:0},
-]
+];
 
 app.get("/",(req,res)=> {
     let now = new Date();

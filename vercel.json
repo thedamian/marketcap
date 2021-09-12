@@ -2,11 +2,11 @@
     "version": 2,
     "builds": [
       {
-         "src": "server.js", "use": "@now/node" 
+         "src": "marketcap.js", "use": "@now/node" 
       }],
       "routes": [
         {
           "src":"/.*",
-          "dest": "/server.js"
+          "dest": "/marketcap.js"
         }]
   }
