@@ -18,7 +18,6 @@ let companies = [
 {stock:'FB',marketcap:0},
 {stock:'BRK.A',marketcap:0},
 {stock:'TSLA',marketcap:0},
-{stock:'TSLA',marketcap:0},
 {stock:'TSM',marketcap:0},
 {stock:'TCEHY',marketcap:0},
 {stock:'NVDA',marketcap:0},
