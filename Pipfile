@@ -1,0 +1,10 @@
+[[source]]
+url = "https://pmarketcap.vercel.app"
+verify_ssl = true
+name = "marketcap"
+ 
+[packages]
+flask = "*"
+ 
+[requires]
+python_version = "3.9"
