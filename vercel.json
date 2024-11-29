@@ -1,12 +1,14 @@
 {
-    "version": 2,
-    "builds": [
-        { "src": "*.html", "use": "@vercel/static" },
-        { "src": "*.py", "use": "@vercel/python" }
-      ],
-      "routes": [
-        {
-          "src":"/.*",
-          "dest": "/index.py"
-        }]
-  }
+  "builds": [
+      {
+          "src": "api/marketcap.py",
+          "use": "@vercel/python"
+      }
+  ],
+  "routes": [
+      {
+          "src": "/(.*)",
+          "dest": "api/marketcap.py"
+      }
+  ]
+}
