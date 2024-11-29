@@ -1,5 +1,5 @@
 [[source]]
-url = "https://pmarketcap.vercel.app"
+url = "https://marketcap.vercel.app"
 verify_ssl = true
 name = "marketcap"
  
