@@ -1,10 +1,15 @@
-from flask import Flask, render_template,request
+#import uvicorn
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 import yfinance as yf
-# import requests_cache
-# session = requests_cache.CachedSession('yfinance.cache')
-# session.headers['User-agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
 
-# yf.Ticker("AAPL").info['marketCap']
+app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+templates = Jinja2Templates(directory="./templates")
 
 stocks = [
         {"stock": "AAPL", "marketcap": 0},
@@ -22,53 +27,15 @@ stocks = [
 
     ]
 
-app = Flask(__name__)
-
-@app.route('/', methods = ['GET', 'POST'])
-def index():
-
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
     for stock in stocks:
         stock['marketcap'] = 0 + yf.Ticker(stock['stock']).info['marketCap']
     stocks.sort(key=lambda x: x['marketcap'], reverse=True)
+    return templates.TemplateResponse(
+	  request=request, name="index.html", context={"stocks":stocks}
+	)
 
 
-    Html ="""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1, user-scalable=no">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="refresh" content="600" />
-        <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.min.css'>
-    </head>
-    <body>
-        <h1>Top Market Cap Stocks:</h1>
-        <ol>"""
-
-    for stock in stocks:
-        Html += "<li>"
-        if "marketcap" in stock:
-            if stock["marketcap"] > 1000000000000:
-                Html += "<h3>"
-        Html += f"{stock['stock']}: $ {"{:,}".format(stock['marketcap'])}</h3></li>"
-
-    Html += """
-        </ol>
-    <h2>See you at the next <a href="https://floridajs.com">FloridaJS</a> event!</h2>
-    </body>
-    </html>
-    """
-    return Html
-    # if request.method == 'GET':
-    #     return websiteReply("")
-    # if request.method == 'POST':
-    #     inputfields = request.form # a multidict containing POST data
-    #     question = inputfields.get('question')
-    #     return websiteReply(askQuestion(question))
-    # else:
-    #     Sreturn "<html><body>Something went wrong</body></html>"
-    
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=5025)
+#if __name__ == "__main__":
+#    uvicorn.run(app, host="0.0.0.0", port=5025)

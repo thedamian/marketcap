@@ -1,3 +1,6 @@
+uvicorn
+fastapi
+jinja2
 Flask==3.0.2
-yfinance==0.2.36
+yfinance
 requests-cache==1.1.1

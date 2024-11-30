@@ -1,14 +1,14 @@
 {
   "builds": [
       {
-          "src": "api/marketcap.py",
+          "src": "api/main.py",
           "use": "@vercel/python"
       }
   ],
   "routes": [
       {
           "src": "/(.*)",
-          "dest": "api/marketcap.py"
+          "dest": "api/main.py"
       }
   ]
 }
