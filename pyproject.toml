@@ -1,0 +1,11 @@
+[project]
+name = "marketcap"
+version = "0.1.0"
+description = "Get the Top 10 companies by marketcap"
+readme = "README.md"
+requires-python = ">=3.09"
+dependencies = [
+"Flask==3.0.2",
+"yfinance==0.2.36",
+"requests-cache==1.1.1"
+]
