@@ -1,0 +1,8 @@
+name: marketcap
+channels:
+ - defaults
+dependencies:
+- python=3.09
+- Flask
+- yfinance
+- requests-cache
