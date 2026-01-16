@@ -1,9 +1,9 @@
 [project]
 name = "marketcap"
 version = "0.1.0"
-description = "Add your description here"
+description = "Get the Top 10 companies by marketcap"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.09"
 dependencies = [
     "flask>=3.1.2",
     "requests-cache>=1.2.1",
