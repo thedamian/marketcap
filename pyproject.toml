@@ -1,0 +1,11 @@
+[project]
+name = "marketcap"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flask>=3.1.2",
+    "requests-cache>=1.2.1",
+    "yfinance>=1.0",
+]

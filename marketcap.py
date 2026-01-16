@@ -1,5 +1,6 @@
 from flask import Flask, render_template,request
 import yfinance as yf
+import time
 # import requests_cache
 # session = requests_cache.CachedSession('yfinance.cache')
 # session.headers['User-agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
@@ -27,6 +28,7 @@ def index():
 
     for stock in stocks:
         stock['marketcap'] = 0 + yf.Ticker(stock['stock']).info['marketCap']
+        time.sleep(0.5)
     stocks.sort(key=lambda x: x['marketcap'], reverse=True)
 
     Html ="""
